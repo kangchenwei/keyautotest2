@@ -1,0 +1,16 @@
+{
+    "test_case": "qqq.test1",
+    "result": "fail",
+    "steps": [],
+    "description": "asdfsdffd",
+    "error": "Traceback (most recent call last):\n  File \"C:\\iTestin\\framework\\golem-master\\golem\\test_runner\\test_runner.py\", line 122, in run_test\n    test_module.test(execution.data)\n  File \"C:\\iTestin\\framework\\golem-master\\projects\\test\\tests\\qqq\\test1.py\", line 10, in test\n    adsf()\nNameError: name 'adsf' is not defined\n",
+    "short_error": "NameError: name 'adsf' is not defined\n",
+    "test_elapsed_time": 0.01,
+    "test_timestamp": "2018.11.01.18.48.11.054",
+    "browser": "chrome",
+    "test_data": {
+        "dfg": "'sdf'"
+    },
+    "environment": "",
+    "set_name": "sdf"
+}

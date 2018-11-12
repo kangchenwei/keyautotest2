@@ -1,0 +1,8 @@
+flask
+Flask-Login
+selenium
+pytest
+requests
+sphinx
+recommonmark
+tox

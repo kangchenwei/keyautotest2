@@ -1,0 +1,12 @@
+21:02:37.397 INFO Test execution started: qqq.test1
+21:02:37.407 INFO Browser: chrome
+21:02:37.407 INFO Using data: 
+    dfg: asdf
+
+21:02:37.407 ERROR An error ocurred:
+Traceback (most recent call last):
+  File "C:\iTestin\framework\golem-master\golem\test_runner\test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "C:\iTestin\framework\golem-master\projects\test\tests\qqq\test1.py", line 10, in test
+    adsf()
+NameError: name 'adsf' is not defined

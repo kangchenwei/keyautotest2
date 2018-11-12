@@ -1,0 +1,14 @@
+{
+    "test_case": "12",
+    "result": "pass",
+    "steps": [],
+    "description": "\u624b\u673a\u4e3b\u9875\u7684\u6d4b\u8bd5",
+    "error": "",
+    "short_error": "",
+    "test_elapsed_time": 0.09,
+    "test_timestamp": "2018.11.01.15.49.13.483",
+    "browser": "chrome",
+    "test_data": {},
+    "environment": "",
+    "set_name": ""
+}

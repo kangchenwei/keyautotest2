@@ -1,0 +1,12 @@
+2018-11-01 21:02:38,188 root INFO Test execution started: qqq.test1
+2018-11-01 21:02:38,188 root INFO Browser: chrome
+2018-11-01 21:02:38,188 root INFO Using data: 
+    dfg: sdf
+
+2018-11-01 21:02:38,198 root ERROR An error ocurred:
+Traceback (most recent call last):
+  File "C:\iTestin\framework\golem-master\golem\test_runner\test_runner.py", line 122, in run_test
+    test_module.test(execution.data)
+  File "C:\iTestin\framework\golem-master\projects\test\tests\qqq\test1.py", line 10, in test
+    adsf()
+NameError: name 'adsf' is not defined
