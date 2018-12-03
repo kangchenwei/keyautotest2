@@ -42,34 +42,34 @@
 
         <div class="col-sm-6 same-heigth-col gray-1-background" id="pageObjectsContainerContainer" style="border-top: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0;">
 
-            <h4>Pages</h4>
-            <div id="pageObjectsContainer">
-                <div id="pageObjects">
-                    {% for page in test_case_contents.pages %}  
-                    <div class="input-group">
-                        <input type="text" disabled class="form-control no-border-radius selected-page" value="{{page}}">
-                        <span class="input-group-btn input-middle-btn">
-                            <button class="btn btn-default" type="button" onclick="testCase.loadPageInModal(this)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
-                        </span>
-                        <span class="input-group-btn input-middle-btn">
-                            <button class="btn btn-default" type="button" onclick="openPageObjectInNewWindow(this)"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></button>
-                        </span>
-                        <span class="input-group-btn">
-                            <button class="btn btn-default no-border-radius" type="button" onclick="testCase.deletePageObject(this)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                        </span>
-                    </div>
-                    {% endfor %}
-                </div>
-                <div>
-                    <button id="newPageButton" class="btn btn-default btn-sm no-border-radius" style="float: right; height:34px;" onclick="testCase.displayNewPagePrompt();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Page</button>
-                    <div style="overflow: hidden; padding-right: .5em;">
-                        <!-- <input type="text" style="width: 100%;" /> -->
-                        <div class="input-group">
-                            <input type="text" style="width: 100%;" class="form-control custom-input page-objects-input page-objects-autocomplete" placeholder="import page">
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--<h4>Pages</h4>-->
+            <!--<div id="pageObjectsContainer">-->
+                <!--<div id="pageObjects">-->
+                    <!--{% for page in test_case_contents.pages %}  -->
+                    <!--<div class="input-group">-->
+                        <!--<input type="text" disabled class="form-control no-border-radius selected-page" value="{{page}}">-->
+                        <!--<span class="input-group-btn input-middle-btn">-->
+                            <!--<button class="btn btn-default" type="button" onclick="testCase.loadPageInModal(this)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>-->
+                        <!--</span>-->
+                        <!--<span class="input-group-btn input-middle-btn">-->
+                            <!--<button class="btn btn-default" type="button" onclick="openPageObjectInNewWindow(this)"><span class="glyphicon glyphicon-new-window" aria-hidden="true"></span></button>-->
+                        <!--</span>-->
+                        <!--<span class="input-group-btn">-->
+                            <!--<button class="btn btn-default no-border-radius" type="button" onclick="testCase.deletePageObject(this)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
+                        <!--</span>-->
+                    <!--</div>-->
+                    <!--{% endfor %}-->
+                <!--</div>-->
+                <!--<div>-->
+                    <!--<button id="newPageButton" class="btn btn-default btn-sm no-border-radius" style="float: right; height:34px;" onclick="testCase.displayNewPagePrompt();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New Page</button>-->
+                    <!--<div style="overflow: hidden; padding-right: .5em;">-->
+                        <!--&lt;!&ndash; <input type="text" style="width: 100%;" /> &ndash;&gt;-->
+                        <!--<div class="input-group">-->
+                            <!--<input type="text" style="width: 100%;" class="form-control custom-input page-objects-input page-objects-autocomplete" placeholder="import page">-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
 
         </div>
 

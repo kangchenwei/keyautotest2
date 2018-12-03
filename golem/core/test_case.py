@@ -253,7 +253,7 @@ def generate_test_case_path(root_path, project, full_test_case_name):
     return test_case_path
 
 def generate_excel(teststep,casename):
-    filename = 'C:\\iTestin\\framework\\golem-master\\testcaseExcel\\'+casename
+    filename = 'testcaseExcel/'+casename
     workbook = xlwt.Workbook(encoding='utf-8')
     sheet = workbook.add_sheet('Sheet1', cell_overwrite_ok=True)
     sheet.write(0, 0, "action")
