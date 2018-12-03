@@ -684,6 +684,7 @@ def generate_excel():
     if request.method == 'POST':
         teststep = request.json['teststep']
         test_name = request.json['testCaseName']
+        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77")
         print(teststep)
         test_case.generate_excel(teststep, test_name)
         for step in teststep:

@@ -222,7 +222,7 @@ function startStepFirstInputAutocomplete(){
         lookup.push({
             'value': globalActions[ac].name,
             'data': globalActions[ac].name
-        })        
+        })
     }
 
     for(f in selectedPageObjectsFunctions){
@@ -280,7 +280,15 @@ function stepFirstInputChange(elem){
     }
 
     for(p in actionParameters){
-        var parameter = actionParameters[p];    
+        var parameter = actionParameters[p];
+
+        //定义input类型:way表示获取控件的方式
+        if(parameter.type == 'way'){
+            var customClass = 'way-input';
+            var input = "<input type='text' class='form-control \
+                                    parameter-input "+customClass+"' \
+                                    placeholder='"+parameter.name+"'>";
+        }
 
         if(parameter.type == 'value'){
             var customClass = 'value-input';
@@ -757,11 +765,20 @@ function getThisStep(elem){
     }
     if($(elem).find('.step-first-input').val().length > 0){
         thisStep.action = $(elem).find('.step-first-input').val();
-        $(elem).find('.parameter-input').each(function(){
-            if($(this).val().length > 0){
-                thisStep.parameters.push($(this).val());
+        var options = {};
+        console.log("action=========",thisStep.action)
+        $(elem).find('.parameter-input').each(function(item){
+            if($(elem).find('.parameter-input').hasClass('way-input')){
+                options['way'] = $(elem).find('.way-input').val();
+            }
+            if($(elem).find('.parameter-input').hasClass('element-input')){
+                options['element'] = $(elem).find('.element-input').val();
+            }
+            if($(elem).find('.parameter-input').hasClass('value-input')){
+                options['value'] = $(elem).find('.value-input').val();
             }
         });
+        thisStep.parameters.push(options);
     }
     return thisStep
 }

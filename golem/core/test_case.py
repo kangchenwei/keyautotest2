@@ -256,11 +256,39 @@ def generate_excel(teststep,casename):
     filename = 'C:\\iTestin\\framework\\golem-master\\testcaseExcel\\'+casename
     workbook = xlwt.Workbook(encoding='utf-8')
     sheet = workbook.add_sheet('Sheet1', cell_overwrite_ok=True)
-    for i in range(0, len(teststep[0])):
-        sheet.write(0, i, list(teststep[0].keys())[i])
+    sheet.write(0, 0, "action")
+    sheet.write(0, 1, "way")
+    sheet.write(0, 2, "element")
+    sheet.write(0, 3, "value")
+
+    # for i in range(0, len(teststep[0])):
+    #     sheet.write(0, i, list(teststep[0].keys())[i])
+    # for row in range(1, len(teststep) + 1):
+    #     for col in range(0, len(teststep[0].items())):
+    #         sheet.write(row, col, u'%s' % list(teststep[row - 1].values())[col])
+
     for row in range(1, len(teststep) + 1):
-        for col in range(0, len(teststep[0].items())):
-            sheet.write(row, col, u'%s' % list(teststep[row - 1].values())[col])
+        for col in range(0, 3):
+            if(col == 0):
+                sheet.write(row, col, u'%s' % list(teststep[row - 1].values())[col])
+            else:
+                parameters = list(teststep[row - 1].values())[1]
+                print("parameters%%%%%%%%%%%%%%%%%%%%%%%=========")
+                print(parameters)
+                param_dict = parameters[0]
+                print(parameters[0])
+                param_keys = list(param_dict.keys())
+                print(param_keys)
+                for i in range(0, len(param_keys)):
+                    key = param_keys[i]
+                    if(key == "way"):
+                        sheet.write(row, i + 1, u'%s' % param_dict[key])
+                    elif(key == "element"):
+                        sheet.write(row, i + 1, u'%s' % param_dict[key])
+                    elif(key == "value"):
+                        sheet.write(row, i + 1, u'%s' % param_dict[key])
+
+
 
     workbook.save(r"%s.xls" % filename)
 

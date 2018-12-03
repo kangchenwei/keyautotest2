@@ -16,8 +16,8 @@ def run_test_case(project, test_case_name, environment):
     if environment:
         param_list.append('--environments')
         param_list.append(environment)
-    print("========================================================")
-    print(param_list)
+    # print("========================================================")
+    # print(param_list)
     subprocess.Popen(param_list)
     return timestamp
 
@@ -109,6 +109,9 @@ class Golem_action_parser:
             action_func_list = [function for function in module.__dict__.values()
                                 if is_valid_function(function, module)]
 
+            # print("====$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$======================")
+            # print(action_func_list)
+
             for action in action_func_list:
                 doc = action.__doc__
                 if doc is None:
@@ -116,6 +119,8 @@ class Golem_action_parser:
                           .format(action.__name__))
                 else:
                     action_def = self._parse_docstring(doc)
+                    # print("action_def=============")
+                    # print(action_def)
                     action_def['name'] = action.__name__
                     actions.append(action_def)
             self.actions = actions
