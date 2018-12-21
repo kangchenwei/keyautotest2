@@ -187,6 +187,7 @@ def _capture_or_add_step(message, screenshot_on_step):
 def click(way, element):
     """Click an element
     Parameters:
+    stepdescribe : stepdescribe
     findway : way
     element : element
     """
@@ -197,9 +198,10 @@ def click(way, element):
     webelement.click()
     _capture_or_add_step(step_message, execution.settings['screenshot_on_step'])
 
-def send_keys(way, element, value):
+def send_text(way, element, value):
     """Click an element
         Parameters:
+        stepdescribe : stepdescribe
         findway : way
         element : element
         value : value
@@ -208,6 +210,7 @@ def send_keys(way, element, value):
 def clear(way,element):
     """Clear inputText
         Parameters:
+        stepdescribe : stepdescribe
         findway : way
         element : element
     """
@@ -216,6 +219,7 @@ def swipe(coordinates):
     """根据坐标滑动屏幕：指定开始坐标和结束坐标
 
         Parameters:
+        stepdescribe : stepdescribe
         coordinates:  value
     """
 
@@ -223,9 +227,196 @@ def install_app(apppath):
     """Install app by apppath
 
         Parameters:
+        stepdescribe : stepdescribe
         apppath : value
-        """
+    """
 
+def remove_app():
+    """Install app by apppath
+
+        Parameters:
+        stepdescribe : stepdescribe
+        package_name : value
+    """
+
+def is_app_installed():
+    """判断是否已安装
+
+        Parameters:
+        stepdescribe : stepdescribe
+        packagename : value
+    """
+
+def get_current_activity():
+    """获得当前应用的activity
+
+        Parameters:
+        stepdescribe : stepdescribe
+    """
+
+def launch_app():
+    """运行应用
+
+        Parameters:
+        stepdescribe : stepdescribe
+    """
+
+def open_notifications():
+    """打开通知栏
+
+        Parameters:
+        stepdescribe : stepdescribe
+
+    """
+
+
+def long_press_by_element():
+    """通过控件定位 长按控件
+
+        Parameters:
+        stepdescribe : stepdescribe
+        findway : way
+        element : element
+    """
+def long_press_by_coordinate():
+    """通过坐标定位 长按坐标处
+
+        Parameters:
+        stepdescribe : stepdescribe
+        value : value
+    """
+
+def long_press_by_offset():
+    """通过控件定位和坐标的偏移点击 长按
+
+        Parameters:
+        stepdescribe : stepdescribe
+        findway : way
+        element : element
+        coordinate : value
+    """
+
+def tap_by_element():
+    """通过控件获取 进行点击操作
+
+        Parameters:
+        stepdescribe : stepdescribe
+        findway : way
+        element : element
+    """
+
+def tap_by_coordinate():
+    """通过坐标获取 进行点击操作
+
+        Parameters:
+        stepdescribe : stepdescribe
+        coordinate : value
+    """
+
+def tap_by_offset():
+    """偏移点击
+
+        Parameters:
+        stepdescribe : stepdescribe
+        findway : way
+        element : element
+        coordinate : value
+    """
+
+def move_to_element():
+    """移动到某一控件处
+
+        Parameters:
+        stepdescribe : stepdescribe
+        findway : way
+        element : element
+    """
+
+def move_to_coordinate():
+    """移动到某一坐标处
+
+        Parameters:
+        stepdescribe : stepdescribe
+        coordinate : value
+    """
+
+def sleep():
+    """睡眠
+
+        Parameters:
+        stepdescribe : stepdescribe
+        time : value
+    """
+
+def implicitly_wait():
+    """隐式等待，智能等待。是 webdirver 提供的一个超时等待。隐的等待一个元素被发现，或一个命令完成。如果超出了设置时间的则抛出异常。
+
+        Parameters:
+        stepdescribe : stepdescribe
+        activity,3,1 : value
+    """
+
+def WebDriverWait():
+    """显式等待，同样也是 webdirver 提供的方法。在设置时间内，默认每隔一段时间检测一次当前页面元素是否存在，如果超过设置时间检测不到则抛出异常。默认检测频率为0.5s
+
+        Parameters:
+        stepdescribe : stepdescribe
+        time : value
+    """
+
+def wait_activity():
+    """等待指定的activity出现
+
+        Parameters:
+        stepdescribe : stepdescribe
+        activity,3,1 : value
+    """
+
+def get_network_connection():
+    """连接网络
+
+        Parameters:
+        stepdescribe : stepdescribe
+    """
+
+def set_network_connect():
+    """设置网络。设置手机的网络连接状态，可以开关蓝牙、wifi、数据流量。通过NetworkConnectionSetting中的属性来设置各个网络连接的状态。
+
+        Parameters:
+        stepdescribe : stepdescribe
+        value : value
+    """
+
+def shake():
+    """摇晃手机
+
+        Parameters:
+        stepdescribe : stepdescribe
+    """
+
+def set_network_connect():
+    """锁屏
+
+        Parameters:
+        stepdescribe : stepdescribe
+        time : value
+    """
+
+def scroll_to_text():
+    """滚动到某个text属性为指定的字符串的控件
+
+        Parameters:
+        stepdescribe : stepdescribe
+        text : value
+    """
+
+def rotate():
+    """旋转屏幕
+
+        Parameters:
+        stepdescribe : stepdescribe
+        orientation : value
+    """
 # def close():
 #     """Close a browser. Closes the current active browser"""
 #     execution.logger.info('Close driver')

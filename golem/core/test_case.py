@@ -252,43 +252,99 @@ def generate_test_case_path(root_path, project, full_test_case_name):
                                   os.sep.join(parents), '{}.py'.format(tc_name))
     return test_case_path
 
-def generate_excel(teststep,casename):
+def generate_excel(testSteps,casename):
     filename = 'testcaseExcel/'+casename
     workbook = xlwt.Workbook(encoding='utf-8')
     sheet = workbook.add_sheet('Sheet1', cell_overwrite_ok=True)
-    sheet.write(0, 0, "action")
-    sheet.write(0, 1, "way")
-    sheet.write(0, 2, "element")
-    sheet.write(0, 3, "value")
+    sheet.write(0, 0, "@model")
+    sheet.write(0, 1, "step description")
+    sheet.write(0, 2, "Action")
+    sheet.write(0, 3, "FindWay")
+    sheet.write(0, 4, "Element")
+    sheet.write(0, 5, "Value")
 
-    # for i in range(0, len(teststep[0])):
-    #     sheet.write(0, i, list(teststep[0].keys())[i])
-    # for row in range(1, len(teststep) + 1):
-    #     for col in range(0, len(teststep[0].items())):
-    #         sheet.write(row, col, u'%s' % list(teststep[row - 1].values())[col])
+    row_length = 0
+    print(testSteps.values())
+    #得到字典testStep中的value值：{'setup': [{'action': 'send_text', 'parameters': [{'stepdescribe': '', 'way': '', 'element': '', 'value': ''}]}], 'test': [{'action': 'install_app', 'parameters':
+    #[{'stepdescribe': '', 'value': ''}]}], 'teardown': [{'action': 'clear', 'parameters': [{'stepdescribe': '', 'way': '', 'element': ''}]}]}
 
-    for row in range(1, len(teststep) + 1):
-        for col in range(0, 3):
-            if(col == 0):
-                sheet.write(row, col, u'%s' % list(teststep[row - 1].values())[col])
+    steplist = list(testSteps.values()) #将得到的values值转化成list
+    print(steplist)
+    print(len(steplist))
+    for i in range(len(steplist)):
+        stepvalue = steplist[i]
+        size = len(stepvalue)
+        row_length = row_length + size  #遍历list得到总共的action数，存入row中，作为表格行数控制依据
+
+    stepkeys = list(testSteps.keys())
+
+    row = 1
+    setup_step = list(testSteps['setup'])
+    sheet.write(row, 0, 'Setup')
+    for row in range(row, len(setup_step)+1):
+        for col in range(1, 7):
+            if(col == 2):
+                sheet.write(row, col, u'%s' % list(setup_step[row - 1].values())[col-2])
             else:
-                parameters = list(teststep[row - 1].values())[1]
-                print("parameters%%%%%%%%%%%%%%%%%%%%%%%=========")
-                print(parameters)
+                parameters = list(setup_step[row - 1].values())[1]
                 param_dict = parameters[0]
-                print(parameters[0])
                 param_keys = list(param_dict.keys())
-                print(param_keys)
                 for i in range(0, len(param_keys)):
                     key = param_keys[i]
-                    if(key == "way"):
-                        sheet.write(row, i + 1, u'%s' % param_dict[key])
+                    if(key == "stepdescribe"):
+                        sheet.write(row, 1, u'%s' % param_dict[key])
+                    elif(key == "way"):
+                        sheet.write(row, 3, u'%s' % param_dict[key])
                     elif(key == "element"):
-                        sheet.write(row, i + 1, u'%s' % param_dict[key])
+                        sheet.write(row, 4, u'%s' % param_dict[key])
                     elif(key == "value"):
-                        sheet.write(row, i + 1, u'%s' % param_dict[key])
+                        sheet.write(row, 5, u'%s' % param_dict[key])
 
+    row = row + 1
+    temprow = row
+    test_step = list(testSteps['test'])
+    sheet.write(row, 0, 'Test')
+    for row in range(row, len(test_step)+row):
+        for col in range(1, 7):
+            if(col == 2):
+                sheet.write(row, col, u'%s' % list(test_step[row - temprow].values())[col-2])
+            else:
+                parameters = list(test_step[row - temprow].values())[1]
+                param_dict = parameters[0]
+                param_keys = list(param_dict.keys())
+                for i in range(0, len(param_keys)):
+                    key = param_keys[i]
+                    if(key == "stepdescribe"):
+                        sheet.write(row, 1, u'%s' % param_dict[key])
+                    elif(key == "way"):
+                        sheet.write(row, 3, u'%s' % param_dict[key])
+                    elif(key == "element"):
+                        sheet.write(row, 4, u'%s' % param_dict[key])
+                    elif(key == "value"):
+                        sheet.write(row, 5, u'%s' % param_dict[key])
 
+    row = row + 1
+    temprow = row
+    teardown_step = list(testSteps['teardown'])
+    sheet.write(row, 0, 'Teardown')
+    for row in range(row, len(teardown_step) + row):
+        for col in range(1, 7):
+            if (col == 2):
+                sheet.write(row, col, u'%s' % list(teardown_step[row - temprow].values())[col - 2])
+            else:
+                parameters = list(teardown_step[row - temprow].values())[1]
+                param_dict = parameters[0]
+                param_keys = list(param_dict.keys())
+                for i in range(0, len(param_keys)):
+                    key = param_keys[i]
+                    if (key == "stepdescribe"):
+                        sheet.write(row, 1, u'%s' % param_dict[key])
+                    elif (key == "way"):
+                        sheet.write(row, 3, u'%s' % param_dict[key])
+                    elif (key == "element"):
+                        sheet.write(row, 4, u'%s' % param_dict[key])
+                    elif (key == "value"):
+                        sheet.write(row, 5, u'%s' % param_dict[key])
 
     workbook.save(r"%s.xls" % filename)
 

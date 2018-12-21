@@ -30,7 +30,7 @@ from golem.core import (utils,
 from golem.core import test_data as test_data_module
 from golem.core import suite as suite_module
 
-from golem.gui import gui_utils, user, report_parser
+from golem.gui import gui_utils, user, report_parser,testutil
 
 
 app = Flask(__name__)
@@ -652,6 +652,13 @@ def save_page_object():
         return json.dumps('ok')
 
 
+# @app.route("/get_global_find_ways/", methods=['POST'])
+# def get_global_find_ways():
+#     if request.method == 'POST':
+#         global_find_ways = testutil.KKeyTest_findways().get_findways()
+#         return json.dumps(global_find_ways)
+
+
 @app.route("/save_page_object_code/", methods=['POST'])
 def save_page_object_code():
     if request.method == 'POST':
@@ -682,17 +689,9 @@ def run_test_case():
 @app.route("/generate_excel/", methods=['POST'])
 def generate_excel():
     if request.method == 'POST':
-        teststep = request.json['teststep']
+        testSteps = request.json['testSteps']
         test_name = request.json['testCaseName']
-        print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&77")
-        print(teststep)
-        test_case.generate_excel(teststep, test_name)
-        for step in teststep:
-            print(step)
-            jsonstep = json.dumps(step)
-            perstep = json.loads(jsonstep)
-            print(perstep['action'])
-            print(perstep['parameters'])
+        test_case.generate_excel(testSteps, test_name)
 
         return json.dumps('ok')
 

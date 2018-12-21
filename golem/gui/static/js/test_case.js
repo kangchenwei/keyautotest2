@@ -9,6 +9,7 @@ var checkDelay = 2000;
 $(document).ready(function() {      
 
     getGlobalActions();
+    //getGlobalFindWays();
     getPageObjects();
     getPageObjectElements();
     //startAllElementInputAutocomplete();
@@ -308,6 +309,12 @@ function stepFirstInputChange(elem){
                                     parameter-input "+customClass+"' \
                                     placeholder='"+parameter.name+"'>";
         }
+        else if(parameter.type == 'stepdescribe'){
+            var customClass = 'stepdescribe-input';
+            var input = "<input type='text' class='form-control \
+                                    parameter-input "+customClass+"' \
+                                    placeholder='"+parameter.name+"'>";
+        }
         // else if(parameter.type == 'custom-param'){
         //     var customClass = 'element-input value-input';
         //     var input = "<input type='text' class='form-control \
@@ -467,6 +474,18 @@ function getGlobalActions(){
     });   
 }
 
+/*function getGlobalFindWays(){
+    $.ajax({
+        url: "/get_global_find_ways/",
+        data: {},
+        dataType: 'json',
+        type: 'POST',
+        success: function(data) {
+            globalFindWays = data;
+        },
+        error: function() {}
+    });
+}*/
 
 function getGlobalActionParameters(actionName){
     for(a in globalActions){
@@ -546,15 +565,43 @@ function getPageObjectElements(){
 
 //导出关键字脚本到excel
 function generateExcel(){
-    var test = []
+
+    var testSteps = {
+        'setup': [],
+        'test': [],
+        'teardown': []
+    };
+//    var test = []
+    $("#setupSteps .step").each(function(){
+        var thisStep = getThisStep(this);
+        if(thisStep.action.length > 0){
+            testSteps.setup.push(thisStep);
+        }
+    });
     $("#testSteps .step").each(function(){
         var thisStep = getThisStep(this);
         if(thisStep.action.length > 0){
-            test.push(thisStep);
+            testSteps.test.push(thisStep);
         }
     });
+    $("#teardownSteps .step").each(function(){
+        var thisStep = getThisStep(this);
+        if(thisStep.action.length > 0){
+            testSteps.teardown.push(thisStep);
+        }
+    });
+
+//    $("#testSteps .step").each(function(){
+//        var thisStep = getThisStep(this);
+//        if(thisStep.action.length > 0){
+//            test.push(thisStep);
+//        }
+//    });
+
     var data = {
-        'teststep' : test,
+        'description': description,
+//        'teststep' : test,
+        'testSteps': testSteps,
         'testCaseName': fullTestCaseName
     }
     $.ajax({
@@ -768,6 +815,9 @@ function getThisStep(elem){
         var options = {};
         console.log("action=========",thisStep.action)
         $(elem).find('.parameter-input').each(function(item){
+            if($(elem).find('.parameter-input').hasClass('stepdescribe-input')){
+                options['stepdescribe'] = $(elem).find('.stepdescribe-input').val();
+            }
             if($(elem).find('.parameter-input').hasClass('way-input')){
                 options['way'] = $(elem).find('.way-input').val();
             }

@@ -8,3 +8,7 @@ def setup(data):
 
 def test(data):
     pass
+
+
+def teardown(data):
+    pass
