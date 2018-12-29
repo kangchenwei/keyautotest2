@@ -232,7 +232,7 @@ def install_app(apppath):
     """
 
 def remove_app():
-    """Install app by apppath
+    """remove_app
 
         Parameters:
         stepdescribe : stepdescribe

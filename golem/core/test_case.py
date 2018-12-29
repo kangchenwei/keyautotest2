@@ -256,7 +256,7 @@ def generate_excel(testSteps,casename):
     filename = 'testcaseExcel/'+casename
     workbook = xlwt.Workbook(encoding='utf-8')
     sheet = workbook.add_sheet('Sheet1', cell_overwrite_ok=True)
-    sheet.write(0, 0, "@model")
+    sheet.write(0, 0, "Model")
     sheet.write(0, 1, "step description")
     sheet.write(0, 2, "Action")
     sheet.write(0, 3, "FindWay")
@@ -364,8 +364,8 @@ def save_test_case(root_path, project, full_test_case_name, description,
         f.write(formatted_description)
         f.write('\n')
         # write the list of pages
-        f.write('pages = {}\n'.format(_format_page_object_string(page_objects)))
-        f.write('\n')
+        # f.write('pages = {}\n'.format(_format_page_object_string(page_objects)))
+        # f.write('\n')
         # write test data if required or save test data to external file
         if test_execution.settings['test_data'] == 'infile':
             if test_data:

@@ -1,5 +1,7 @@
 
-description = '测试测试'
+description = ''
+
+pages = []
 
 def setup(data):
     pass

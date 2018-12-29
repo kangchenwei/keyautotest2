@@ -189,6 +189,8 @@ def test_case_code_view(project, test_case_name):
     tc_name, parents = utils.separate_file_from_parents(test_case_name)
     path = os.path.join(root_path, 'projects', project, 'tests',
                           os.sep.join(parents), tc_name + '.py')
+    print("path============")
+    print(path)
     test_case_contents = test_case.get_test_case_code(path)
     error = utils.validate_python_file_syntax(path)
     external_data = test_data_module.get_external_test_data(root_path, project,

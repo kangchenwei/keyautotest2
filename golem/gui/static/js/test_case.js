@@ -566,6 +566,8 @@ function getPageObjectElements(){
 //导出关键字脚本到excel
 function generateExcel(){
 
+    var description = $("#description").val();
+
     var testSteps = {
         'setup': [],
         'test': [],
@@ -591,16 +593,9 @@ function generateExcel(){
         }
     });
 
-//    $("#testSteps .step").each(function(){
-//        var thisStep = getThisStep(this);
-//        if(thisStep.action.length > 0){
-//            test.push(thisStep);
-//        }
-//    });
 
     var data = {
         'description': description,
-//        'teststep' : test,
         'testSteps': testSteps,
         'testCaseName': fullTestCaseName
     }
