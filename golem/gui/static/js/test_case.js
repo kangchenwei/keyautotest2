@@ -568,6 +568,12 @@ function generateExcel(){
 
     var description = $("#description").val();
 
+    //获取用例编辑页面的应用配置信息
+    var apppath = $("#apppath").val();
+    var appname = $("#appname").val();
+    var appPackagename = $("#appPackagename").val();
+    var appActivityname = $("#appActivityname").val();
+
     var testSteps = {
         'setup': [],
         'test': [],
@@ -595,8 +601,13 @@ function generateExcel(){
 
 
     var data = {
+        'appname' : appname,
+        'apppath' : apppath,
+        'appPackagename' : appPackagename,
+        'appActivityname' : appActivityname,
         'description': description,
         'testSteps': testSteps,
+        'project': project,
         'testCaseName': fullTestCaseName
     }
     $.ajax({

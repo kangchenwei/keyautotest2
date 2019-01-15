@@ -4,14 +4,14 @@ import time
 
 class ExcelUtils:
 
-    def __init__(self, filePath,driver):
+    def __init__(self, filePath, driver):
         self.data = xlrd.open_workbook(filePath)
         self.driver = driver
 
-    def getTableData(self,tableName):
+    def getTableData(self, tableName):
         return self.data.sheet_by_name(tableName)
 
-    def getRowValues(self,tableData,rowId):
+    def getRowValues(self, tableData, rowId):
         return tableData.row_values(rowId)
 
 
@@ -25,11 +25,7 @@ class ExcelUtils:
 
         excelUtils = ExcelUtils(filePath, driver)
         tableData = excelUtils.getTableData(sheetName)
-        print("tabledata=========================")
-        print(tableData)
         titleRowValues = excelUtils.getRowValues(tableData, 0)
-        print("titleRowValues=========================")
-        print(titleRowValues)
 
         ##这里仅仅是做了执行，如果要转换成py脚本，跟这个思路类似，略有不同
 
@@ -38,8 +34,6 @@ class ExcelUtils:
             if i == 0:
                 continue
             rowValues = excelUtils.getRowValues(tableData, i)
-            print("------------------------------------------")
-            print(rowValues)
 
             keyDescription = ''
             keyAction = ''

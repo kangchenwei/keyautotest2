@@ -142,6 +142,8 @@ def get_test_case_content(root_path, project, test_case_name):
     # get test steps
     test_steps = []
     test_function_code = getattr(test_module, 'test', None)
+    print("test_function_code---------------------------------------------------------------------")
+    print(test_function_code)
     if test_function_code:
         test_steps = _get_parsed_steps(test_function_code)
     
@@ -252,10 +254,37 @@ def generate_test_case_path(root_path, project, full_test_case_name):
                                   os.sep.join(parents), '{}.py'.format(tc_name))
     return test_case_path
 
-def generate_excel(testSteps,casename):
-    filename = 'testcaseExcel/'+casename
+
+def generate_test_case_excel_path(root_path, project, full_test_case_name):
+    """Generate full path to a python file of a test case.
+
+    full_test_case_name must be a dot path starting from /tests/ dir.
+    Example:
+      generate_test_case_path('/', 'project1', 'module1.test1')
+      -> '/projects/project1/testcaseExcel/module1/test1'
+    """
+    tc_name, parents = utils.separate_file_from_parents(full_test_case_name)
+    test_case_excel_path = os.path.join(root_path, 'projects', project, 'testcaseExcel', os.sep.join(parents))
+    return test_case_excel_path, tc_name
+
+def generate_excel(root_path, project, testSteps, casename, appname, apppath, appPackagename, appActivityname):
+    test_case_excel_path, tc_name = generate_test_case_excel_path(root_path, project, casename)
+    filename = test_case_excel_path
+    if not os.path.exists(filename):
+        os.makedirs(filename)
     workbook = xlwt.Workbook(encoding='utf-8')
-    sheet = workbook.add_sheet('Sheet1', cell_overwrite_ok=True)
+    sheet = workbook.add_sheet('testcase', cell_overwrite_ok=True)
+    sheet2 = workbook.add_sheet('configure', cell_overwrite_ok=True)
+
+    sheet2.write(0, 0, "AppName")
+    sheet2.write(0, 1, "AppPath")
+    sheet2.write(0, 2, "AppPackageName")
+    sheet2.write(0, 3, "AppActivityName")
+    sheet2.write(1, 0, appname)
+    sheet2.write(1, 1, apppath)
+    sheet2.write(1, 2, appPackagename)
+    sheet2.write(1, 3, appActivityname)
+
     sheet.write(0, 0, "Model")
     sheet.write(0, 1, "step description")
     sheet.write(0, 2, "Action")
@@ -346,7 +375,9 @@ def generate_excel(testSteps,casename):
                     elif (key == "value"):
                         sheet.write(row, 5, u'%s' % param_dict[key])
 
-    workbook.save(r"%s.xls" % filename)
+
+
+    workbook.save(r"%s.xls" % (filename+"\\"+tc_name))
 
 
 def save_test_case(root_path, project, full_test_case_name, description,

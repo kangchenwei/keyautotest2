@@ -691,9 +691,15 @@ def run_test_case():
 @app.route("/generate_excel/", methods=['POST'])
 def generate_excel():
     if request.method == 'POST':
+        appname = request.json['appname']
+        apppath = request.json['apppath']
+        appPackagename = request.json['appPackagename']
+        appActivityname = request.json['appActivityname']
+        project = request.json['project']
         testSteps = request.json['testSteps']
         test_name = request.json['testCaseName']
-        test_case.generate_excel(testSteps, test_name)
+        test_case.generate_excel(root_path, project, testSteps, test_name, appname, apppath, appPackagename, appActivityname)
+        # test_case.generate_excel(testSteps, test_name)
 
         return json.dumps('ok')
 
@@ -802,11 +808,11 @@ def save_suite():
         suite_name = request.json['suite']
         test_cases = request.json['testCases']
         workers = request.json['workers']
-        browsers = request.json['browsers']
+        apps = request.json['apps']
         environments = request.json['environments']
 
         suite_module.save_suite(root_path, project, suite_name, test_cases,
-                         workers, browsers, environments)
+                         workers, apps, environments)
 
         return json.dumps('ok')
 

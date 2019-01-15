@@ -212,11 +212,11 @@ function uncheckParentAndGrandParents(elem){
 
 
 function saveTestSuite(){
-    var browsers = [];
-    if($("#browsers").val().length > 0){
-        $($("#browsers").val().split(',')).each(function(){
+    var apps = [];
+    if($("#apps").val().length > 0){
+        $($("#apps").val().split(',')).each(function(){
             if(this.trim().length > 0){
-                browsers.push(this.trim());
+                apps.push(this.trim());
             }
         });
     }
@@ -237,7 +237,7 @@ function saveTestSuite(){
         data: JSON.stringify({
                 "project": project,
                 "suite": suite,
-                "browsers": browsers,
+                "apps": apps,
                 "environments": environments,
                 "workers": workers,
                 "testCases": testCases
@@ -347,13 +347,13 @@ function runSuite(){
 
 
 function startBrowsersAutocomplete(browserSuggestions){
-    $('#browsers').autocomplete({
+    $('#apps').autocomplete({
         lookup: browserSuggestions,
         minChars: 0,
         delimiter: ', ',
         triggerSelectOnValidInput: false,
         onSelect: function (suggestion) {
-            $('#browsers').val($('#browsers').val()+', ');
+            $('#apps').val($('#apps').val()+', ');
         }
     });
 }

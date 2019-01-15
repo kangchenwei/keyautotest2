@@ -20,7 +20,7 @@ def _format_list_items(list_items):
 
 
 def save_suite(root_path, project, suite_name, test_cases, workers,
-               browsers, environments):
+               apps, environments):
     """Save suite content to file."""
     suite_name, parents = utils.separate_file_from_parents(suite_name)
 
@@ -28,7 +28,7 @@ def save_suite(root_path, project, suite_name, test_cases, workers,
                               os.sep.join(parents), '{}.py'.format(suite_name))
     with open(suite_path, 'w', encoding='utf-8') as suite_file:
         suite_file.write('\n\n')
-        suite_file.write('browsers = {}\n'.format(_format_list_items(browsers)))
+        suite_file.write('apps = {}\n'.format(_format_list_items(apps)))
         suite_file.write('\n')
         suite_file.write('environments = {}\n'.format(_format_list_items(environments)))
         suite_file.write('\n')
@@ -40,7 +40,7 @@ def save_suite(root_path, project, suite_name, test_cases, workers,
 def new_suite(root_path, project, parents, suite_name):
     """Create a new empty suite."""
     suite_content = ('\n'
-                     'browsers = []\n\n'
+                     'apps = []\n\n'
                      'environments = []\n\n'
                      'workers = 1\n\n'
                      'tests = []\n')
