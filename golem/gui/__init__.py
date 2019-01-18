@@ -150,7 +150,7 @@ def project_suites(project):
 # PROJECT PAGES VIEW
 @app.route("/project/<project>/apps/")
 @login_required
-def project_pages(project):
+def project_apps(project):
     if not user.has_permissions_to_project(g.user.id, project, root_path, 'gui'):
         return render_template('not_permission.html')
     elif not utils.project_exists(root_path, project):
@@ -183,6 +183,7 @@ def test_case_view(project, test_case_name):
     else:
         test_case_contents = test_case.get_test_case_content(root_path, project,
                                                              test_case_name)
+        print("test_case_content=========", test_case_contents)
         test_data = test_data_module.get_test_data(root_path, project, test_case_name)
         return render_template('test_builder/test_case.html', project=project,
                                test_case_contents=test_case_contents,
@@ -695,6 +696,16 @@ def save_page_object():
         import_lines = request.json['importLines']
         page_object.save_page_object(root_path, projectname, page_object_name,
                                      elements, functions, import_lines)
+        return json.dumps('ok')
+    
+@app.route("/save_app_object/", methods=['POST'])
+def save_app_object():
+    if request.method == 'POST':
+        projectname = request.json['project']
+        page_object_name = request.json['pageObjectName']
+        appsinfo = request.json['appsinfo']
+        app_object.save_page_object(root_path, projectname, page_object_name,
+                                     appsinfo)
         return json.dumps('ok')
 
 

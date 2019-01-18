@@ -99,6 +99,93 @@ function addPageObjectInput(){
     });
 }
 
+function addAppObjectInput(){
+    $("#elements").append(
+        "<div class='element col-md-12 clearfix'> \
+            <div style='width: calc(100% - 34px)'>\
+                <div class='col-xs-3 no-pad-left padding-right-5'> \
+                    <div class='input-group po-input-group'> \
+                        <input type='text' class='form-control app-name' value='' \
+                            placeholder='name'> \
+                    </div> \
+                </div> \
+                <div class='col-xs-3 padding-left-5 padding-right-5'> \
+                    <div class='input-group po-input-group'> \
+                        <input type='text' class='form-control app-version' \
+                            value='' placeholder='version'> \
+                    </div> \
+                </div> \
+                <div class='col-xs-3 padding-left-5 padding-right-5'> \
+                    <div class='input-group po-input-group'> \
+                        <input type='text' class='form-control app-apk' \
+                            value='' placeholder='apk or path'> \
+                    </div> \
+                </div> \
+            </div>\
+            <div class='step-remove-icon'>\
+                <a href='javascript:void(0)' onclick='deleteElement(this);'>\
+                    <span class='glyphicon glyphicon-remove' aria-hidden='true'></span>\
+                </a>\
+            </div>\
+        </div>");
+
+    // give focus to the last input
+    $("#elements>div").last().find("input").first().focus();
+    startAllSelectorInputAutocomplete();
+    $(".element-name").keyup(function(){
+        $(this).parent().parent().parent().find('.element-display-name').val($(this).val());
+    });
+    $("#elements input").on("change", function(){
+        unsavedChanges = true;
+    });
+}
+
+
+function saveAppObject(){
+    var appsinfo = [];
+    var errors = false;
+
+    $(".element").each(function(){
+        if($(this).find('.element-name').val().length > 0){
+            var name = $(this).find('.app-name').val().trim();
+            var version = $(this).find('.app-version').val();
+            var apk = $(this).find('.app-apk').val();
+            else if(!isNaN(name.charAt(0))){
+                utils.displayErrorModal(['Element names should not begin with a digit']);
+                errors = true
+            }
+            else{
+                appsinfo.push({
+                    'name': name,
+                    'version': version,
+                    'apk': apk
+                });
+            }
+        }
+    });
+
+    if(errors){
+        return
+    }
+    $.ajax({
+        url: "/save_app_object/",
+        data: JSON.stringify({
+                "project": project,
+                "pageObjectName": pageObjectName,
+                "appsinfo": appsinfo,
+            }),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        type: 'POST',
+        success: function(data) {
+            utils.toast('success', "Page "+pageObjectName+" saved", 3000);
+
+            unsavedChanges = false;
+        },
+        error: function() {
+        }
+    });
+}
 
 function savePageObject(){
     var elements = [];

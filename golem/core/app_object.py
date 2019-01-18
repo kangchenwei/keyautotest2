@@ -111,40 +111,32 @@ def get_page_object_code(path):
     return code
 
 
-def save_page_object(root_path, project, full_page_name, elements,
-                     functions, import_lines):
+def save_app_object(root_path, project, full_page_name, appsinfo):
     """Save Page Object contents to file.
     full_page_name must be a dot path starting from /project/pages/
     directory, (i.e.: 'module.sub_module.page_name_01')
     """
     def format_element_string(name, selector, value, display_name):
-        formatted = ("\n\n{0} = ('{1}', \'{2}\', '{3}')"
-                     .format(element['name'], element['selector'],
-                             element['value'], element['display_name'])
+        formatted = ("\n\n{0} = ('{1}', \'{2}\')"
+                     .format(element['name'], element['version'],
+                             element['apk'])
                     )
         return formatted
 
     page_name, parents = utils.separate_file_from_parents(full_page_name)
-    page_object_path = os.path.join(root_path, 'projects', project, 'pages',
+    page_object_path = os.path.join(root_path, 'projects', project, 'apps',
                                     os.sep.join(parents), '{}.py'.format(page_name))
     with open(page_object_path, 'w', encoding='utf-8') as po_file:
-        for line in import_lines:
-            po_file.write("{}\n".format(line))
-        for element in elements:
+        for element in appsinfo:
             # replace the spaces with underlines of the element name
             if ' ' in element['name']:
                 element['name'] = element['name'].replace(' ', '_')
             # escape quote characters
-            element['value'] = element['value'].replace('"', '\\"').replace("'", "\\'")
-            if not element['display_name']:
-                element['display_name'] = element['name']
+            element['version'] = element['version'].replace('"', '\\"').replace("'", "\\'")
             formatted = format_element_string(element['name'],
-                                              element['selector'],
-                                              element['value'],
-                                              element['display_name'])
+                                              element['version'],
+                                              element['apk'])
             po_file.write(formatted)
-        for func in functions:
-            po_file.write('\n\n' + func)
 
 
 def save_page_object_code(root_path, project, full_page_name, content):

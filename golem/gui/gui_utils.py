@@ -16,8 +16,6 @@ def run_test_case(project, test_case_name, environment):
     if environment:
         param_list.append('--environments')
         param_list.append(environment)
-    # print("========================================================")
-    # print(param_list)
     subprocess.Popen(param_list)
     return timestamp
 
