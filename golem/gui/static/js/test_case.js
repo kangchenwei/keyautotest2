@@ -631,7 +631,8 @@ function saveTestCase(config){
     //     return
     // }
     var description = $("#description").val();
-    var pageObjects = getSelectedPageObjects();
+//    var pageObjects = getSelectedPageObjects();删掉不用，没有page了，改为下面的app
+    var appObjects = getSelectedAppInfo();
     
     // get data from table
     var testData = dataTable.getData();
@@ -662,7 +663,8 @@ function saveTestCase(config){
 
     var data = {
         'description': description,
-        'pageObjects': pageObjects,
+//        'pageObjects': pageObjects,
+        'appObjects': appObjects,
         'testData': testData,
         'testSteps': testSteps,
         'project': project,
@@ -704,6 +706,16 @@ function getSelectedPageObjects(){
         }
     })
     return selectedPageObjects
+}
+
+function getSelectedAppInfo(){
+    var selectedAppObjects = {};
+    selectedAppObjects['appname'] = $("#appname").val();
+    selectedAppObjects['apppath'] = $("#apppath").val();
+    selectedAppObjects['appPackagename'] = $("#appPackagename").val();
+    selectedAppObjects['appActivityname'] = $("#appActivityname").val();
+
+    return selectedAppObjects
 }
 
 
@@ -780,7 +792,10 @@ function loadCodeView(){
     // redirect to gui view
     window.location.replace("/project/"+project+"/test/"+fullTestCaseName+"/code/");
 }
-
+//有3个页面 a,b,c
+//如果当前页面是c页面，并且c页面是这样跳转过来的：a->b->c
+//1：b->c 是通过window.location.replace("..xx/c")   此时b页面的url会被c页面代替，并且点击后退按钮时会回退到a页面（最开始的页面）
+//2：b->c是通过window.location.href("..xx/c")    此时b页面的路径会被c页面代替，但是点击回按钮后页面回退的是b页面
 
 function showSetupSteps(){
     $("#showSetupLink").hide();

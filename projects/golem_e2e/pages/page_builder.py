@@ -2,11 +2,13 @@ from golem import actions
 from golem.browser import elements
 
 
-page_name = ('id', 'pageObjectName', 'page_name')
 add_element_button = ('css', '#datosContainer button', 'Add Element button')
-save_button = ('css', 'button#save', 'Save button')
+
 code_button = ('id', 'loadCodeButton', 'Code button')
 
+page_name = ('id', 'pageObjectName', 'page_name')
+
+save_button = ('css', 'button#save', 'Save button')
 
 def add_element(element_def):
     actions.click(add_element_button)
@@ -25,6 +27,14 @@ def add_element(element_def):
     element_display_name_input = last_element_row.find('input.element-display-name')
     actions.clear(element_display_name_input)
     actions.send_keys(element_display_name_input, element_def[3])
+
+
+def elements(*args, **kwargs):
+    """Shortcut to golem.browser.get_browser().find_all()"""
+    if len(args) == 1:
+        kwargs['element'] = args[0]
+    webelement = get_browser().find_all(**kwargs)
+    return webelement
 
 
 def save_page():
@@ -46,5 +56,3 @@ def verify_element_exists(element_def):
         if cond1 and cond2 and cond3 and cond4:
             return
     raise Exception('The element was not found')
-
-

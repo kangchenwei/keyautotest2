@@ -1,19 +1,14 @@
 
 description = 'Verify the user can access a page by clicking on it in the page list.'
 
-pages = ['login',
-         'common',
-         'index',
-         'project_pages',
-         'page_builder']
+apps = {}
 
-def setup(data):
-    common.access_golem(data.env.url, data.env.admin)
-    index.create_access_project('test')
-    common.navigate_menu('Pages')
-
-def test(data):
-    store('page_name', 'page_' + random('cccc'))
-    project_pages.add_page(data.page_name)
-    project_pages.access_page(data.page_name)
-    verify_text_in_element(page_builder.page_name, data.page_name)
+def setup(self):
+    self.desired_caps = {}
+    self.desired_caps['platformName'] = 'Android'
+    self.desired_caps['deviceName'] = 'KVD6JZ7999999999' 
+    self.desired_caps['platformVersion'] = '5.0.2'
+    self.desired_caps['app'] = test/kuaikan.apk
+    self.desired_caps['appPackage'] = com.kuaikanmanhua
+    self.desired_caps['appActivity'] = com.kuaikanmanhua
+    self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', self.desired_caps)

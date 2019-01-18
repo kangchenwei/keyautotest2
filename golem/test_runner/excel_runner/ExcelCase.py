@@ -44,6 +44,33 @@ class ExcelCase(unittest.TestCase):
         print('teardown')
         self.driver.quit()
 
+
+# 用例目录
+test_suite_dir = r'C:\Users\Administrator\PycharmProjects\OpenAPI_new\\'
+# test_suite_dir=r'/opt/openapi/'  #145部署环境
+# 报告目录
+Report_dir = r'C:\Users\Administrator\PycharmProjects\OpenAPI_new\Report\\'
+# Report_dir=r'/opt/openapi/Report/'  #145部署环境
+
+def creatsuite():
+    testunit = unittest.TestSuite()
+    # 定义测试文件查找的目录
+    test_dir = test_suite_dir
+    # 定义 discover 方法的参数
+    package_tests = unittest.defaultTestLoader.discover(test_dir,
+                                                        pattern='Test*.py',
+                                                        top_level_dir=None)
+    # package_tests=TestLoader.discover(start_dir=test_dir, pattern='Test*.py')
+    # discover 方法筛选出来的用例，循环添加到测试套件中
+    for test_suite in package_tests:
+        for test_case in test_suite:
+            testunit.addTests(test_case)
+            print(testunit)
+    return testunit
+
+
+alltestnames = creatsuite()
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv

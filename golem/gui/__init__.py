@@ -24,6 +24,7 @@ from golem.core import (utils,
                         environment_manager,
                         test_case,
                         page_object,
+                        app_object,
                         test_execution,
                         changelog,
                         lock)
@@ -109,6 +110,18 @@ def project_view(project):
     else:
         return redirect('/project/{}/suites/'.format(project))
 
+#sldkfj
+@app.route("/projects/<project>/")
+@login_required
+def projects_view(project):
+    if not user.has_permissions_to_project(g.user.id, project, root_path, 'gui'):
+        return render_template('not_permission.html')
+    elif not utils.project_exists(root_path, project):
+        abort(404, 'This page does not exists.')
+    else:
+        projects = utils.get_projects(root_path)
+        return render_template('index.html', projects=projects)
+
 
 # PROJECT TESTS VIEW
 @app.route("/project/<project>/tests/")
@@ -135,7 +148,7 @@ def project_suites(project):
 
 
 # PROJECT PAGES VIEW
-@app.route("/project/<project>/pages/")
+@app.route("/project/<project>/apps/")
 @login_required
 def project_pages(project):
     if not user.has_permissions_to_project(g.user.id, project, root_path, 'gui'):
@@ -143,7 +156,7 @@ def project_pages(project):
     elif not utils.project_exists(root_path, project):
         abort(404, 'This page does not exists.')
     else:
-        return render_template('project/project_pages.html', project=project)
+        return render_template('project/project_apps.html', project=project)
 
 
 # TEST CASE VIEW
@@ -219,9 +232,34 @@ def page_view(project, full_page_name, no_sidebar=False):
         return render_template('page_builder/page_object.html',
                                project=project,
                                page_object_data=page_data,
-                               page_name=full_page_name, 
+                               page_name=full_page_name,
                                no_sidebar=no_sidebar)
 
+# PAGE OBJECT VIEW
+@app.route("/project/<project>/app/<full_page_name>/")
+@login_required
+def app_view(project, full_page_name, no_sidebar=False):
+    if not user.has_permissions_to_project(g.user.id, project, root_path, 'gui'):
+        return render_template('not_permission.html')
+    path = page_object.generate_page_path(root_path, project, full_page_name)
+    error = utils.validate_python_file_syntax(path)
+    if error:
+        return render_template('app_builder/app_syntax_error.html',
+                               project=project,
+                               app_page_name=full_page_name)
+    else:
+        page_data = app_object.get_app_object_content(project, full_page_name)
+        return render_template('app_builder/app_object.html',
+                               project=project,
+                               app_object_data=page_data,
+                               app_name=full_page_name,
+                               no_sidebar=no_sidebar)
+
+# PAGE OBJECT VIEW no sidebar
+@app.route("/project/<project>/app/<full_page_name>/no_sidebar/")
+@login_required
+def app_view_no_sidebar(project, full_page_name):
+    return page_view(project, full_page_name, no_sidebar=True)
 
 # PAGE OBJECT VIEW no sidebar
 @app.route("/project/<project>/page/<full_page_name>/no_sidebar/")
@@ -422,6 +460,12 @@ def get_pages():
         pages = utils.get_pages(root_path, project)
         return json.dumps(pages)
 
+@app.route("/project/get_apps/", methods=['POST'])
+def get_apps():
+    if request.method == 'POST':
+        project = request.form['project']
+        apps = utils.get_apps(root_path, project)
+        return json.dumps(apps)
 
 @app.route("/project/get_suites/", methods=['POST'])
 def get_suite():
@@ -623,7 +667,7 @@ def save_test_case_code():
         projectname = request.json['project']
         test_case_name = request.json['testCaseName']
         table_test_data = request.json['testData']
-        content = request.json['content']
+        content = request.json['content'] 
 
         # test_data.save_test_data(root_path, projectname, test_case_name, test_data)
         test_case.save_test_case_code(root_path, projectname, test_case_name,
@@ -709,14 +753,14 @@ def save_test_case():
         project = request.json['project']
         test_name = request.json['testCaseName']
         description = request.json['description']
-        page_objects = request.json['pageObjects']
+        app_objects = request.json['appObjects']
         test_data_content = request.json['testData']
         test_steps = request.json['testSteps']
 
         # test_data.save_test_data(root_path, project, test_name, test_data_content)
 
         test_case.save_test_case(root_path, project, test_name, description,
-                                 page_objects, test_steps, test_data_content)
+                                 app_objects, test_steps, test_data_content)
 
         # changelog.log_change(root_path, project, 'MODIFY', 'test', test_name,
         #                       g.user.username)

@@ -1,7 +1,7 @@
 
 
-browsers = [
-    'chrome'
+apps = [
+    '快看漫画'
 ]
 
 environments = [

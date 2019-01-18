@@ -106,7 +106,7 @@ def get_test_case_content(root_path, project, test_case_name):
     """Parse and return the contents of a Test in
     the following format:
       'description' :  string
-      'pages' :        list of pages
+      'apps' :        list of pages
       'steps' :        step dictionary
         'setup' :      parsed setup steps
         'test' :       parsed test steps
@@ -114,7 +114,7 @@ def get_test_case_content(root_path, project, test_case_name):
     """
     test_contents = {
         'description': '',
-        'pages': [],
+        'apps': {},
         'steps': {
             'setup': [],
             'test': [],
@@ -127,11 +127,16 @@ def get_test_case_content(root_path, project, test_case_name):
     #sys.path.append(os.path.join(root_path, 'projects', project))
     test_module = importlib.import_module('projects.{0}.tests.{1}'
                                           .format(project, test_case_name))
+    print("test_moudle====================", test_module)
     # get description
     description = getattr(test_module, 'description', '')
     
     # get list of pages
-    pages = getattr(test_module, 'pages', [])
+    # pages = getattr(test_module, 'pages', [])
+    
+    # get list of appinfo
+    apps = getattr(test_module, 'apps', {})
+    print("apps============", apps)
       
     # get setup steps
     setup_steps = []
@@ -142,8 +147,6 @@ def get_test_case_content(root_path, project, test_case_name):
     # get test steps
     test_steps = []
     test_function_code = getattr(test_module, 'test', None)
-    print("test_function_code---------------------------------------------------------------------")
-    print(test_function_code)
     if test_function_code:
         test_steps = _get_parsed_steps(test_function_code)
     
@@ -154,7 +157,7 @@ def get_test_case_content(root_path, project, test_case_name):
         teardown_steps = _get_parsed_steps(teardown_function_code)
 
     test_contents['description'] = description
-    test_contents['pages'] = pages
+    test_contents['apps'] = apps
     test_contents['steps']['setup'] = setup_steps
     test_contents['steps']['test'] = test_steps
     test_contents['steps']['teardown'] = teardown_steps
@@ -211,6 +214,16 @@ def _format_page_object_string(page_objects):
     po_string = "[{}]".format(po_string.strip()[:-1])
     return po_string
 
+def _format_app_object_string(app_objects):
+    """Format app object string to store in test case."""
+    app_string = ''
+    print("app_objects==============", app_objects)
+    for key in app_objects:
+        print("6666666666666666666666666", key)
+        app_string = app_string + " ' " + key + " ' :" + app_objects[key] + ",\n"+" " * 8
+        print("app_string=================" + app_string)
+    app_string = "{}".format(app_string)
+    return app_string
 
 def _format_description(description):
     """Format description string to store in test case."""
@@ -375,13 +388,11 @@ def generate_excel(root_path, project, testSteps, casename, appname, apppath, ap
                     elif (key == "value"):
                         sheet.write(row, 5, u'%s' % param_dict[key])
 
-
-
     workbook.save(r"%s.xls" % (filename+"\\"+tc_name))
 
 
 def save_test_case(root_path, project, full_test_case_name, description,
-                   page_objects, test_steps, test_data):
+                   app_objects, test_steps, test_data):
     """Save test case contents to file.
 
     full_test_case_name is a relative dot path to the test
@@ -394,9 +405,11 @@ def save_test_case(root_path, project, full_test_case_name, description,
         f.write('\n')
         f.write(formatted_description)
         f.write('\n')
-        # write the list of pages
+        # write the list of page
         # f.write('pages = {}\n'.format(_format_page_object_string(page_objects)))
         # f.write('\n')
+        f.write('apps = {}\n'.format(app_objects))
+        f.write('\n')
         # write test data if required or save test data to external file
         if test_execution.settings['test_data'] == 'infile':
             if test_data:
@@ -409,21 +422,54 @@ def save_test_case(root_path, project, full_test_case_name, description,
                                                           full_test_case_name,
                                                           test_data)
         # write the setup function
-        f.write('def setup(data):\n')
+        f.write('def setup(self):\n')
         if test_steps['setup']:
+            #添加appium配置信息
+            f.write("    self.desired_caps = {}\n")
+            f.write("    self.desired_caps['platformName'] = 'Android'\n")
+            f.write("    self.desired_caps['deviceName'] = 'KVD6JZ7999999999' \n")
+            f.write("    self.desired_caps['platformVersion'] = '5.0.2'\n")
+            f.write("    self.dess['app'] = '" + app_objects['apppath'] + "'\n")
+            f.write("    self.desired_caps['appPackage'] = '" + app_objects['appPackagename'] + "'\n")
+            f.write("    self.desired_caps['appActivity'] = '" + app_objects['appActivityname'] + "'\n")
+            f.write("    self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', self.desired_caps)\n")
             for step in test_steps['setup']:
                 step_action = step['action'].replace(' ', '_')
-                param_str = ', '.join(step['parameters'])
+                parameters = step['parameters'][0]
+                print("step['parameters'][0]============", parameters)
+                if(parameters['way'] != None):
+                    way = parameters['way']
+                elif (parameters['element'] != None):
+                    element = parameters['element']
+                elif (parameters['value'] != None):
+                    value = parameters['value']
+                param_str = ', '.join(way)
                 f.write('    {0}({1})\n'.format(step_action, param_str))
         else:
-            f.write('    pass\n')
+            # 添加appium配置信息
+            f.write("    self.desired_caps = {}\n")
+            f.write("    self.desired_caps['platformName'] = 'Android'\n")
+            f.write("    self.desired_caps['deviceName'] = 'KVD6JZ7999999999' \n")
+            f.write("    self.desired_caps['platformVersion'] = '5.0.2'\n")
+            f.write("    self.desired_caps['app'] = '" + app_objects['apppath'] + "'\n")
+            f.write("    self.desired_caps['appPackage'] = '" + app_objects['appPackagename'] + "'\n")
+            f.write("    self.desired_caps['appActivity'] = '" + app_objects['appActivityname'] + "'\n")
+            f.write("    self.driver = webdriver.Remote('http://127.0.0.1:4723/wd/hub', self.desired_caps)\n")
         f.write('\n')
         # write the test function
         f.write('def test(data):\n')
         if test_steps['test']:
             for step in test_steps['test']:
                 step_action = step['action'].replace(' ', '_')
-                param_str = ', '.join(step['parameters'])
+                parameters = step['parameters'][0]
+                print("step['parameters'][0]============", parameters)
+                if (parameters['way'] != None):
+                    way = parameters['way']
+                elif (parameters['element'] != None):
+                    element = parameters['element']
+                elif (parameters['value'] != None):
+                    value = parameters['value']
+                param_str = ', '.join(way)
                 f.write('    {0}({1})\n'.format(step_action, param_str))
         else:
             f.write('    pass\n')
@@ -433,7 +479,15 @@ def save_test_case(root_path, project, full_test_case_name, description,
         if test_steps['teardown']:
             for step in test_steps['teardown']:
                 step_action = step['action'].replace(' ', '_')
-                param_str = ', '.join(step['parameters'])
+                parameters = step['parameters'][0]
+                print("step['parameters'][0]============", parameters)
+                if (parameters['way'] != None):
+                    way = parameters['way']
+                elif (parameters['element'] != None):
+                    element = parameters['element']
+                elif (parameters['value'] != None):
+                    value = parameters['value']
+                param_str = ', '.join(way)
                 f.write('    {0}({1})\n'.format(step_action, param_str))
         else:
             f.write('    pass\n')

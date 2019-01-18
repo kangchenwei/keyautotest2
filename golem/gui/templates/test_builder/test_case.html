@@ -22,7 +22,7 @@
         </div>
         <div class="col-sm-4 text-right header-col" style="padding-top: 20px">
 
-            <button id="generateExcel" class="btn btn-default btn-sm" onclick="generateExcel({runAfter: false})"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> 导出关键字用例</button>
+            <button id="generateExcel" class="btn btn-default btn-sm" onclick="generateExcel({runAfter: false})"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> 导出关键字用例</button>
 
             <button id="runTest" class="btn btn-default btn-sm" onclick="testRunner.runTestCase()"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span> Run Test</button>
 
@@ -45,35 +45,37 @@
             <h4>配置</h4>
             <div id="pageObjectsContainer">
                 <div id="pageObjects">
-                    <div class="input-group">
-                        <div class="form-group">
-				            <label  class="col-sm-4 control-label">AppName</label>
-			                <div class="col-sm-7">
-			    	            <input type="text" class="form-control" id="appname" name="appname" placeholder="应用名称" autofocus>
-			                </div>
+                    {% if test_case_contents.apps %}
+                        <div class="input-group">
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">AppName</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="appname" name="appname" placeholder="应用名称" value="{{test_case_contents.apps.appname}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">AppPath</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="apppath" name="apppath" placeholder="应用路径" value="{{test_case_contents.apps.apppath}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">AppPackageName</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="appPackagename" name="appPackagename" placeholder="应用包名" value="{{test_case_contents.apps.appPackagename}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-4 control-label">AppActivityName</label>
+                                <div class="col-sm-7">
+                                    <input type="text" class="form-control" id="appActivityname" name="appActivityname" placeholder="应用activity" value="{{test_case_contents.apps.appActivityname}}">
+                                </div>
+                            </div>
+                            <!--<span class="input-group-btn">-->
+                                <!--<button class="btn btn-default no-border-radius" type="button" onclick="testCase.deletePageObject(this)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
+                            <!--</span>-->
                         </div>
-                        <div class="form-group">
-				            <label  class="col-sm-4 control-label">AppPath</label>
-			                <div class="col-sm-7">
-			    	            <input type="text" class="form-control" id="apppath" name="apppath" placeholder="应用路径" autofocus>
-			                </div>
-                        </div>
-                        <div class="form-group">
-				            <label  class="col-sm-4 control-label">AppPackageName</label>
-			                <div class="col-sm-7">
-			    	            <input type="text" class="form-control" id="appPackagename" name="appPackagename" placeholder="应用包名" autofocus>
-			                </div>
-			            </div>
-                        <div class="form-group">
-				            <label  class="col-sm-4 control-label">AppActivityName</label>
-			                <div class="col-sm-7">
-                                <input type="text" class="form-control" id="appActivityname" name="appActivityname" placeholder="应用activity">
-			                </div>
-                        </div>
-                        <!--<span class="input-group-btn">-->
-                            <!--<button class="btn btn-default no-border-radius" type="button" onclick="testCase.deletePageObject(this)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>-->
-                        <!--</span>-->
-                    </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -99,29 +101,31 @@
                 {% if test_case_contents.steps.setup %}
 
                     {% for step in test_case_contents.steps.setup %}
-                        <div class='step'>
-                            <div class="step-numbering">{{loop.index}}</div>
-                            <div class='col-sm-3 step-input-container step-first-input-container'>
-                                <div class='input-group'>
-                                    <input type='text' class='form-control step-first-input'
-                                placeholder='action' onchange='' value="{{step.method_name}}">
+                        {%if not step['method_name'].startswith('self.')%}
+                            <div class='step'>
+                                <div class="step-numbering">{{loop.index}}</div>
+                                <div class='col-sm-3 step-input-container step-first-input-container'>
+                                    <div class='input-group'>
+                                        <input type='text' class='form-control step-first-input'
+                                    placeholder='action' onchange='' value="{{step.method_name}}">
+                                    </div>
+                                </div>
+                                <div class="params col-sm-6">
+                                    {% for parameter in step.parameters %}
+                                        <div class='col-sm-6 step-input-container parameter-container'>
+                                            <div class='input-group'>
+                                                <input type='text' class='form-control parameter-input element-input' placeholder='' value='{{parameter}}'>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="step-remove-icon">
+                                    <a href="javascript:void(0)" onclick="deleteStep(this);">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="params col-sm-6">
-                                {% for parameter in step.parameters %}
-                                    <div class='col-sm-6 step-input-container parameter-container'>
-                                        <div class='input-group'>
-                                            <input type='text' class='form-control parameter-input element-input' placeholder='' value='{{parameter}}'>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <div class="step-remove-icon">
-                                <a href="javascript:void(0)" onclick="deleteStep(this);">
-                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                </a>
-                            </div>
-                        </div>
+                        {% endif %}
                     {% endfor %}
 
                 {% else %}

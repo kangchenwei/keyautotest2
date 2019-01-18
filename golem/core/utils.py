@@ -26,6 +26,10 @@ def get_pages(workspace, project):
     pages = file_manager.generate_file_structure_dict(path)
     return pages
 
+def get_apps(workspace, project):
+    path = os.path.join(workspace, 'projects', project, 'apps')
+    apps = file_manager.generate_file_structure_dict(path)
+    return apps
 
 def get_suites(workspace, project):
     path = os.path.join(workspace, 'projects', project, 'suites')
@@ -97,6 +101,8 @@ def create_new_project(workspace, project):
                                       add_init=True)
     # TODO, remove, don't create data folder for new projects
     # create_directory(path_list=[workspace, 'projects', project, 'data'], add_init=False)
+    _ = [workspace, 'projects', project, 'apps']
+    file_manager.create_directory(path_list=_, add_init=True)
     _ = [workspace, 'projects', project, 'pages']
     file_manager.create_directory(path_list=_, add_init=True)
     _ = [workspace, 'projects', project, 'reports']
@@ -176,6 +182,8 @@ def delete_element(workspace, project, element_type, full_path):
         folder = 'tests'
     elif element_type == 'page':
         folder = 'pages'
+    elif element_type == 'app':
+        folder = 'apps'
     elif element_type == 'suite':
         folder = 'suites'
     else:

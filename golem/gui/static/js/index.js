@@ -23,7 +23,8 @@ function createProject(){
     projectName = projectName.trim();
 
     if(projectName.length < 3){
-        utils.displayErrorModal(['Project name is too short']);
+//        utils.displayErrorModal(['Project name is too short']);
+        utils.displayErrorModal(['项目名称太短,应大于三个字符']);
         return
     }
     if(!/^[\w\s]+$/i.test(projectName)){
@@ -32,12 +33,14 @@ function createProject(){
     }
     // validate length
     if(projectName.length > 50){
-        utils.displayErrorModal(['Maximum length is 50 characters']);
+//        utils.displayErrorModal(['Maximum length is 50 characters']);
+        utils.displayErrorModal(['最大长度为50个字符']);
         return
     }
     // validate there is no more than 1 slash
     if(projectName.split('/').length -1 >= 1){
-        utils.displayErrorModal(['Slashes are not allowed']);
+//        utils.displayErrorModal(['Slashes are not allowed']);
+        utils.displayErrorModal(['名称中不能有斜杠']);
         return   
     }
     

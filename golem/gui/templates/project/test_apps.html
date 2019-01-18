@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="page-main">
+    <!--引入企业认证引导-->
+
+
+
+
+
+
+
+    <div class="breadcrumb-panel">
+
+
+                <ol class="breadcrumb">
+                    <li><i class="iconfont icon-home-o"></i><a href="javascript:;">正式环境</a></li>
+                    <li><a href="javascript:;">测试管理</a></li>
+                    <li class="active">应用管理</li>
+                </ol>
+
+
+
+        <div class="fr">
+
+                <a href="/app/uploadApp.htm">
+                    <button class="btn btn-primary " style="padding: 4px 16px;"><i class="icon iconfont"></i>上传应用
+                    </button>
+                </a>
+
+
+        </div>
+    </div>
+    <div class="usecase-index">
+        <form action="/app/search-list.htm" method="post" id="search-form" class="form-inline page-search-bar">
+            <input type="hidden" name="projectId" value="46">
+            <input type="hidden" id="startPageNo" name="startPageNo" value="">
+            <input type="hidden" name="pageSize" value="15">
+            <input type="hidden" name="searchKeyType" value="1">
+            <div class="form-group">
+                <div class="btn-group bootstrap-select"><button type="button" class="btn dropdown-toggle bs-placeholder btn-default" data-toggle="dropdown" role="button" data-id="appId" title="请选择应用名称"><span class="filter-option pull-left">请选择应用名称</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><div class="bs-searchbox"><input type="text" class="form-control" autocomplete="off" role="textbox" aria-label="Search"></div><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">请选择应用名称</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Boss直聘(com.hpbr.bosszhipin)
+                        </span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">氢气球旅行(com.chanyouji.inspiration)
+                        </span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="3"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">聚爆Implosion(com.ilongyuan.implosion)
+                        </span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="4"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">ModernCombat5(com.gameloft.ModernCombat5)
+                        </span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="5"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">界面新闻(com.jiemian.news)
+                        </span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="appId" id="appId" class="selectpicker" data-live-search="true" data-size="10" tabindex="-98">
+                    <option value="">请选择应用名称</option>
+
+                        <option value="16">Boss直聘(com.hpbr.bosszhipin)
+                        </option>
+
+                        <option value="73">氢气球旅行(com.chanyouji.inspiration)
+                        </option>
+
+                        <option value="21">聚爆Implosion(com.ilongyuan.implosion)
+                        </option>
+
+                        <option value="143">ModernCombat5(com.gameloft.ModernCombat5)
+                        </option>
+
+                        <option value="9">界面新闻(com.jiemian.news)
+                        </option>
+
+                </select></div>
+            </div>
+            <div class="form-group">
+                <div class="btn-group bootstrap-select"><button type="button" class="btn dropdown-toggle bs-placeholder btn-default" data-toggle="dropdown" role="button" data-id="appVersion" title="请选择应用版本"><span class="filter-option pull-left">请选择应用版本</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">请选择应用版本</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="appVersion" id="appVersion" class="selectpicker" tabindex="-98">
+                    <option value="">请选择应用版本</option>
+
+                </select></div>
+            </div>
+            <div class="form-group">
+                <div class="btn-group bootstrap-select"><button type="button" class="btn dropdown-toggle bs-placeholder btn-default" data-toggle="dropdown" role="button" data-id="osType" title="请选择系统类型"><span class="filter-option pull-left">请选择系统类型</span>&nbsp;<span class="bs-caret"><span class="caret"></span></span></button><div class="dropdown-menu open" role="combobox"><ul class="dropdown-menu inner" role="listbox" aria-expanded="false"><li data-original-index="0" class="selected"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="true"><span class="text">请选择系统类型</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="1"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">Android</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li><li data-original-index="2"><a tabindex="0" class="" data-tokens="null" role="option" aria-disabled="false" aria-selected="false"><span class="text">iOS</span><span class="glyphicon glyphicon-ok check-mark"></span></a></li></ul></div><select name="osType" id="osType" class="selectpicker" tabindex="-98">
+                    <option value="">请选择系统类型</option>
+                    <option value="1">Android</option>
+                    <option value="2">iOS</option>
+                </select></div>
+            </div>
+
+            <div class="form-group testin-input-search">
+                <i class="iconfont delete_icon" onclick="javascript:$(function () {
+                        $('#keyword').val('');
+                        $('.chosen-drop').hide();
+                        $('#appId option:first').prop('selected', 'selected');
+                        $('#appId').selectpicker('refresh').selectpicker('render');
+                        $('#appVersion').empty().append('<option selected value=>请选择应用版本</option>');
+                        $('#appVersion').selectpicker('refresh').selectpicker('render');
+                        $('#osType option:first').prop('selected', 'selected');
+                        $('#osType').selectpicker('refresh').selectpicker('render');
+                        $('#channelId').empty().append('<option selected value=>请选择渠道名称</option>');
+                        $('#channelId').selectpicker('refresh').selectpicker('render');
+                    })"></i>
+                  <span class="history">
+                      <label class="title">
+                          	     上传人：
+
+                      </label>
+                      <label class="search-content"></label>
+                  </span>
+                <input type="hidden" name="search-type" class="search-type" value="1">
+                <input type="text" autocomplete="off" id="keyword" name="keyword" value="" class="testin-txt testin-chosen-search" placeholder="请输入关键字" oninput="functionChange()">
+                <div class="chosen-drop">
+                    <ul class="chosen-results">
+                        <li class="active-result  result-selected highlighted" data-option-array-index="1">
+                            <span class="search-title " data-value="1">上传人：</span>
+                            <span class="search-content"></span>
+                        </li>
+                        <li class="active-result " data-option-array-index="2">
+                            <span class="search-title " data-value="2">包名：</span>
+                            <span class="search-content"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-default" onclick="javascript:search()">查询</button>
+            </div>
+        </form>
+        <!--列表-->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="cp_quota">
+                <div class="table-bordered">
+
+                    <table class="table table-striped table-wnowrap test-list-table app-table">
+                        <tbody><tr>
+                            <th>应用名称</th>
+                            <th>版本(build)</th>
+                            <th style="width:85px;">上传人</th>
+                            <th>包名</th>
+                            <th style="width:75px;">版本备注</th>
+
+                            <th style="width:155px;">上传时间</th>
+
+
+                                    <th class="table-width" style="width:240px;">操作</th>
+
+
+
+                        </tr>
+
+                                <tr title="">
+                                    <td title="界面新闻" class="has-icon">
+                                            <img src="http://testin-ee.oss-cn-hangzhou.aliyuncs.com/png--1-ed2f42aa015841c09bcea41b1cefc82c.png" width="20px" class="mr">界面新闻
+
+                                                <i class="icon iconfont icon-android text-android"></i>
+
+
+                                    </td>
+
+
+
+
+                                    <td title="v4.4.0(32)">
+                                        <div class="fixed-block">v4.4.0(32)</div>
+                                    </td>
+                                    <td title="赵峰">
+                                        <div class="fixed-block">赵峰</div>
+                                    </td>
+                                    <td title="com.jiemian.news">
+                                        <div class="fixed-block">com.jiemian.news</div>
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>2018-01-17 19:26:52</td>
+                                    <td>
+
+
+                                                <a href="javascript:void(0);" class="text-blue testApp" app-name="界面新闻 4.4.0" app-id="32805">提测</a>
+
+
+
+
+
+
+                                                    <a data-container="body" class="download-btn" data-toggle="popover" data-placement="bottom" href="javascript:;" data-html="true" data-content="<img class=&quot;popover-img&quot; src=&quot;/qrCode/gen.htm?appUrl=http://testin-ee.oss-cn-hangzhou.aliyuncs.com/APK--1-3090e83af5674abb8ceb2ada3b9dddb1.apk&amp;ostype=1&amp;pkgId=32805&quot;/>
+                                                        <p class=&quot;scan-p&quot; style=&quot;color:#999999&quot;>建议使用浏览器或相机扫码下载</p>
+                                                     <button class=&quot;btn btn-primary&quot; data-url=&quot;http://testin-ee.oss-cn-hangzhou.aliyuncs.com/APK--1-3090e83af5674abb8ceb2ada3b9dddb1.apk&quot;  onclick=&quot;download(this)&quot;>直接下载</button>">下载
+                                                    </a>
+
+
+
+
+
+
+
+                                        <div class="dropdown">
+                                            <a href="javascript:;" class="dropdown-btn">测试记录<span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-en">
+                                                <li>
+                                                    <a href="/app/testRecord.htm?appid=9&amp;appVersion=4.4.0">自动化功能测试</a>
+                                                </li>
+
+                                                    <li>
+                                                        <a href="/task_compatible/list.htm?appid=9&amp;appVersion=4.4.0">标准兼容测试</a>
+                                                    </li>
+
+
+
+
+                                                    <li>
+                                                        <a href="/task_function/list_bug.htm?appId=9&amp;appVersion=4.4.0">Bug探索</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/task_function/list_case.htm?appId=9&amp;appVersion=4.4.0">专家用例测试</a>
+                                                    </li>
+                                                    <li id="secSwitch">
+                                                        <a href="/task_sec/list.htm?appId=9&amp;appVersion=4.4.0">移动应用安全扫描</a>
+                                                    </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <a href="javascript:void(0);" class="text-blue removeApp" app-name="界面新闻 4.4.0" app-id="32805">删除</a>
+                                    </td>
+                                </tr>
+
+
+                                <tr title="">
+                                    <td title="ModernCombat5" class="has-icon">
+                                            <img src="" width="20px" class="mr">ModernCombat5
+
+
+                                                <i class="icon iconfont icon-ios text-ios"></i>
+
+                                    </td>
+
+
+
+
+                                    <td title="v2.3.0(2.3.0)">
+                                        <div class="fixed-block">v2.3.0(2.3.0)</div>
+                                    </td>
+                                    <td title="葛书娇">
+                                        <div class="fixed-block">葛书娇</div>
+                                    </td>
+                                    <td title="com.gameloft.ModernCombat5">
+                                        <div class="fixed-block">com.gameloft.ModernCombat5</div>
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>2017-09-01 22:10:13</td>
+                                    <td>
+
+
+                                                <a href="javascript:void(0);" class="text-blue testApp" app-name="ModernCombat5 2.3.0" app-id="2242">提测</a>
+
+
+
+
+
+
+
+                                                    <a data-container="body" class="download-btn" data-toggle="popover" data-placement="bottom" href="javascript:;" data-html="true" data-content="<img class=&quot;popover-img&quot; src=&quot;/qrCode/gen.htm?appUrl=http://testin-ee.oss-cn-hangzhou.aliyuncs.com/IPA--1-5e4a4ccf109444a8ad94d55400351b3e.ipa&amp;ostype=2&amp;pkgId=2242&quot;/>
+
+                                                    <p class=&quot;scan-p&quot; style=&quot;color:#999999&quot;>建议使用微信扫码下载</p>
+                                                     <button class=&quot;btn btn-primary&quot; data-url=&quot;http://testin-ee.oss-cn-hangzhou.aliyuncs.com/IPA--1-5e4a4ccf109444a8ad94d55400351b3e.ipa&quot;  onclick=&quot;download(this)&quot;>直接下载</button>">下载
+                                                    </a>
+
+
+
+
+
+
+                                        <div class="dropdown">
+                                            <a href="javascript:;" class="dropdown-btn">测试记录<span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-en">
+                                                <li>
+                                                    <a href="/app/testRecord.htm?appid=143&amp;appVersion=2.3.0">自动化功能测试</a>
+                                                </li>
+
+
+
+
+                                                    <li>
+                                                        <a href="/task_function/list_bug.htm?appId=143&amp;appVersion=2.3.0">Bug探索</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/task_function/list_case.htm?appId=143&amp;appVersion=2.3.0">专家用例测试</a>
+                                                    </li>
+                                                    <li id="secSwitch">
+                                                        <a href="/task_sec/list.htm?appId=143&amp;appVersion=2.3.0">移动应用安全扫描</a>
+                                                    </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <a href="javascript:void(0);" class="text-blue removeApp" app-name="ModernCombat5 2.3.0" app-id="2242">删除</a>
+                                    </td>
+                                </tr>
+
+
+                                <tr title="">
+                                    <td title="聚爆Implosion" class="has-icon">
+                                            <img src="http://testin-ee.oss-cn-hangzhou.aliyuncs.com/png--1-45621134b2de473883eddc1bba409a3c.png" width="20px" class="mr">聚爆Implosion
+
+                                                <i class="icon iconfont icon-android text-android"></i>
+
+
+                                    </td>
+
+
+
+
+                                    <td title="v1.2.4(102004000)">
+                                        <div class="fixed-block">v1.2.4(102004000)</div>
+                                    </td>
+                                    <td title="葛书娇">
+                                        <div class="fixed-block">葛书娇</div>
+                                    </td>
+                                    <td title="com.ilongyuan.implosion">
+                                        <div class="fixed-block">com.ilongyuan.implosion</div>
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>2017-09-01 22:06:15</td>
+                                    <td>
+
+
+                                                <a href="javascript:void(0);" class="text-blue testApp" app-name="聚爆Implosion 1.2.4" app-id="2241">提测</a>
+
+
+
+
+
+
+                                                    <a data-container="body" class="download-btn" data-toggle="popover" data-placement="bottom" href="javascript:;" data-html="true" data-content="<img class=&quot;popover-img&quot; src=&quot;/qrCode/gen.htm?appUrl=http://testin-ee.oss-cn-hangzhou.aliyuncs.com/APK--1-0f1a8dd96eba4e9fa13a27c823e3271a.apk&amp;ostype=1&amp;pkgId=2241&quot;/>
+                                                        <p class=&quot;scan-p&quot; style=&quot;color:#999999&quot;>建议使用浏览器或相机扫码下载</p>
+                                                     <button class=&quot;btn btn-primary&quot; data-url=&quot;http://testin-ee.oss-cn-hangzhou.aliyuncs.com/APK--1-0f1a8dd96eba4e9fa13a27c823e3271a.apk&quot;  onclick=&quot;download(this)&quot;>直接下载</button>">下载
+                                                    </a>
+
+
+
+
+
+
+
+                                        <div class="dropdown">
+                                            <a href="javascript:;" class="dropdown-btn">测试记录<span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-en">
+                                                <li>
+                                                    <a href="/app/testRecord.htm?appid=21&amp;appVersion=1.2.4">自动化功能测试</a>
+                                                </li>
+
+                                                    <li>
+                                                        <a href="/task_compatible/list.htm?appid=21&amp;appVersion=1.2.4">标准兼容测试</a>
+                                                    </li>
+
+
+
+
+                                                    <li>
+                                                        <a href="/task_function/list_bug.htm?appId=21&amp;appVersion=1.2.4">Bug探索</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/task_function/list_case.htm?appId=21&amp;appVersion=1.2.4">专家用例测试</a>
+                                                    </li>
+                                                    <li id="secSwitch">
+                                                        <a href="/task_sec/list.htm?appId=21&amp;appVersion=1.2.4">移动应用安全扫描</a>
+                                                    </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <a href="javascript:void(0);" class="text-blue removeApp" app-name="聚爆Implosion 1.2.4" app-id="2241">删除</a>
+                                    </td>
+                                </tr>
+
+
+                                <tr title="">
+                                    <td title="氢气球旅行" class="has-icon">
+                                            <img src="http://testin-ee.oss-cn-hangzhou.aliyuncs.com/png--1-6e0590b2fc544db38cb81aba4dded0fc.png" width="20px" class="mr">氢气球旅行
+
+                                                <i class="icon iconfont icon-android text-android"></i>
+
+
+                                    </td>
+
+
+
+
+                                    <td title="v2.4.0(50)">
+                                        <div class="fixed-block">v2.4.0(50)</div>
+                                    </td>
+                                    <td title="葛书娇">
+                                        <div class="fixed-block">葛书娇</div>
+                                    </td>
+                                    <td title="com.chanyouji.inspiration">
+                                        <div class="fixed-block">com.chanyouji.inspiration</div>
+                                    </td>
+                                    <td>
+
+                                    </td>
+
+                                    <td>2017-09-01 21:57:35</td>
+                                    <td>
+
+
+                                                <a href="javascript:void(0);" class="text-blue testApp" app-name="氢气球旅行 2.4.0" app-id="2237">提测</a>
+
+
+
+
+
+
+                                                    <a data-container="body" class="download-btn" data-toggle="popover" data-placement="bottom" href="javascript:;" data-html="true" data-content="<img class=&quot;popover-img&quot; src=&quot;/qrCode/gen.htm?appUrl=http://testin-ee.oss-cn-hangzhou.aliyuncs.com/APK--1-b6e49ae45d564f4b9630e24f4a339fc5.apk&amp;ostype=1&amp;pkgId=2237&quot;/>
+                                                        <p class=&quot;scan-p&quot; style=&quot;color:#999999&quot;>建议使用浏览器或相机扫码下载</p>
+                                                     <button class=&quot;btn btn-primary&quot; data-url=&quot;http://testin-ee.oss-cn-hangzhou.aliyuncs.com/APK--1-b6e49ae45d564f4b9630e24f4a339fc5.apk&quot;  onclick=&quot;download(this)&quot;>直接下载</button>">下载
+                                                    </a>
+
+
+
+
+
+
+
+                                        <div class="dropdown">
+                                            <a href="javascript:;" class="dropdown-btn">测试记录<span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-en">
+                                                <li>
+                                                    <a href="/app/testRecord.htm?appid=73&amp;appVersion=2.4.0">自动化功能测试</a>
+                                                </li>
+
+                                                    <li>
+                                                        <a href="/task_compatible/list.htm?appid=73&amp;appVersion=2.4.0">标准兼容测试</a>
+                                                    </li>
+
+
+
+
+                                                    <li>
+                                                        <a href="/task_function/list_bug.htm?appId=73&amp;appVersion=2.4.0">Bug探索</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/task_function/list_case.htm?appId=73&amp;appVersion=2.4.0">专家用例测试</a>
+                                                    </li>
+                                                    <li id="secSwitch">
+                                                        <a href="/task_sec/list.htm?appId=73&amp;appVersion=2.4.0">移动应用安全扫描</a>
+                                                    </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <a href="javascript:void(0);" class="text-blue removeApp" app-name="氢气球旅行 2.4.0" app-id="2237">删除</a>
+                                    </td>
+                                </tr>
+
+
+                                <tr title="">
+                                    <td title="Boss直聘" class="has-icon">
+                                            <img src="http://testin-ee.oss-cn-hangzhou.aliyuncs.com/png--1-9110b613ebad41eebb0161ea4db4de7f.png" width="20px" class="mr">Boss直聘
+
+
+                                                <i class="icon iconfont icon-ios text-ios"></i>
+
+                                    </td>
+
+
+
+
+                                    <td title="v5.1(5.15)">
+                                        <div class="fixed-block">v5.1(5.15)</div>
+                                    </td>
+                                    <td title="葛书娇">
+                                        <div class="fixed-block">葛书娇</div>
+                                    </td>
+                                    <td title="com.hpbr.bosszhipin">
+                                        <div class="fixed-block">com.hpbr.bosszhipin</div>
+                                    </td>
+                                    <td>
+
+                                            <i class="iconfont icon-wonder-o cursor-def text-primary" data-toggle="tooltip" data-placement="right" data-trigger="click" data-container="body"></i>
+
+                                    </td>
+
+                                    <td>2017-07-10 15:29:54</td>
+                                    <td>
+
+
+                                                <a href="javascript:void(0);" class="text-blue testApp" app-name="Boss直聘 5.1" app-id="86">提测</a>
+
+
+
+
+
+
+
+                                                    <a data-container="body" class="download-btn" data-toggle="popover" data-placement="bottom" href="javascript:;" data-html="true" data-content="<img class=&quot;popover-img&quot; src=&quot;/qrCode/gen.htm?appUrl=http://testin-ee.oss-cn-hangzhou.aliyuncs.com/ipa--1-c39d8ef54a794576b8c7c848d2198d89.ipa&amp;ostype=2&amp;pkgId=86&quot;/>
+
+                                                    <p class=&quot;scan-p&quot; style=&quot;color:#999999&quot;>建议使用微信扫码下载</p>
+                                                     <button class=&quot;btn btn-primary&quot; data-url=&quot;http://testin-ee.oss-cn-hangzhou.aliyuncs.com/ipa--1-c39d8ef54a794576b8c7c848d2198d89.ipa&quot;  onclick=&quot;download(this)&quot;>直接下载</button>">下载
+                                                    </a>
+
+
+
+
+
+
+                                        <div class="dropdown">
+                                            <a href="javascript:;" class="dropdown-btn">测试记录<span class="caret"></span></a>
+                                            <ul class="dropdown-menu dropdown-menu-en">
+                                                <li>
+                                                    <a href="/app/testRecord.htm?appid=16&amp;appVersion=5.1">自动化功能测试</a>
+                                                </li>
+
+
+
+
+                                                    <li>
+                                                        <a href="/task_function/list_bug.htm?appId=16&amp;appVersion=5.1">Bug探索</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="/task_function/list_case.htm?appId=16&amp;appVersion=5.1">专家用例测试</a>
+                                                    </li>
+                                                    <li id="secSwitch">
+                                                        <a href="/task_sec/list.htm?appId=16&amp;appVersion=5.1">移动应用安全扫描</a>
+                                                    </li>
+
+                                            </ul>
+                                        </div>
+
+                                        <a href="javascript:void(0);" class="text-blue removeApp" app-name="Boss直聘 5.1" app-id="86">删除</a>
+                                    </td>
+                                </tr>
+
+
+                    	</tbody></table>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="pagination-panel pagination-bd num_box">
+
+
+
+                    <span>第1-5条，总计5条记录</span>
+
+
+
+
+
+
+
+        <form class="form-inline">
+            <div class="form-group">
+                <ul class="pagination">
+                    <li>
+                        <a href="javascript:;;" class="first-page" id="common_first_page">首页</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;;" class="iconfont" aria-label="Previous" id="common_pre_page_group" data-current-page="1" data-total-page="1">
+                            <span class="icon-left-o"></span>
+                        </a>
+                    </li>
+
+
+
+
+
+
+
+                        <li class="active">
+                            <a href="javascript:;;" name="commonPageGroup" data-target-page="1">1</a>
+                        </li>
+
+                    <li>
+                        <a href="javascript:;;" class="iconfont" aria-label="Next" id="common_next_page_group" data-current-page="1" data-total-page="1">
+                            <span class="icon-right-o"></span>
+                        </a>
+                    </li>
+                    <li><a href="javascript:;;" class="last-page" id="common_last_page" data-target-page="1">尾页</a></li>
+                </ul>
+                <input type="text" class="form-control" placeholder="页数" id="common_target_page" style="max-width: 60px;" maxlength="5" onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}">
+                <button type="button" class="btn btn-default" id="common_go_page" data-total-page="1">前往
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+<script type="text/javascript">
+
+    $(function () {
+        $("#common_first_page").bind({
+            click: function () {
+                commonGoPage(1);
+            }
+        });
+
+        $("#common_last_page").bind({
+            click: function () {
+                commonGoPage($(this).attr("data-target-page"));
+            }
+        });
+
+        $("[name=commonPageGroup]").bind({
+            click: function () {
+                commonGoPage($(this).attr("data-target-page"));
+            }
+        });
+
+        $("#common_pre_page_group").bind({
+            click: function () {
+                // 总页数
+//                var totalPage = parseInt($(this).attr("data-total-page"));
+                // 当前页
+                var currentPage = parseInt($(this).attr("data-current-page"));
+//                if (totalPage < 6 || currentPage < 4) {
+//                    return;
+//                }
+                if (currentPage <= 1) {
+                    return;
+                }
+                // 目标页
+//                var targetPage = parseInt($("[name=commonPageGroup]").first().attr("data-target-page")) - 1;
+                var targetPage = currentPage - 1;
+                commonGoPage(targetPage);
+            }
+        });
+
+        $("#common_next_page_group").bind({
+            click: function () {
+                // 总页数
+                var totalPage = parseInt($(this).attr("data-total-page"));
+                // 当前页
+                var currentPage = parseInt($(this).attr("data-current-page"));
+//                if (totalPage < 6 || totalPage - currentPage < 3) {
+//                    return;
+//                }
+                if (currentPage >= totalPage) {
+                    return;
+                }
+                // 目标页
+//                var targetPage = parseInt($("[name=commonPageGroup]").last().attr("data-target-page")) + 1;
+                var targetPage = currentPage + 1;
+                commonGoPage(targetPage);
+            }
+        });
+
+        $("#common_go_page").bind({
+            click: function () {
+                var targetPage = $("#common_target_page").val();
+                if (targetPage.replace(/^\s+|\s+$/g, '') == ""
+                    || !/^-?[0-9]+\.?[0-9]*$/.test(targetPage)
+                    || parseInt(targetPage) < 1
+                    || parseInt(targetPage) > parseInt($(this).attr("data-total-page"))) {
+                    return;
+                }
+                commonGoPage(targetPage);
+            }
+        });
+    });
+
+</script>
+
+    </div>
+
+</div>
+</body>
+</html>

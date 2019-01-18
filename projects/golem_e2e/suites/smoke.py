@@ -1,10 +1,10 @@
 
 
-browsers = [
+app = [
     'chrome-headless'
 ]
 
-environments = [
+environment = [
     'test'
 ]
 
